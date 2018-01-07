@@ -42,6 +42,7 @@ public class YellowCrawlerService implements IYellowCrawlerService {
     public HashMap<String, Object> webCrawler(HttpServletRequest request) throws Exception {
         HashMap<String, Object> returnMap = new HashMap<>();
         int label = RequestParamUtils.getIntParameter(request, "label");
+        int startPage = RequestParamUtils.getIntParameter(request, "startPage");// 起始页码
         String url = "https://www.343qq.com/htm/novellist1/";
         int totalPage = 1;// 总页数
         switch (label) {
@@ -80,7 +81,7 @@ public class YellowCrawlerService implements IYellowCrawlerService {
             default:
                 break;
         }
-        returnMap = crawler(request, url, 156, totalPage);
+        returnMap = crawler(request, url, startPage, totalPage);
         return returnMap;
     }
 
@@ -183,7 +184,7 @@ public class YellowCrawlerService implements IYellowCrawlerService {
                         logger.error("获取小说内容失败，错误: " + e.getMessage());
                     }
                 }
-                
+
                 Elements pElements = doc.body().select("div.pic_text").get(0).select("div.content").get(0).select("p");
                 List<String> contentList = new ArrayList<>();
                 for (Element p : pElements) {
