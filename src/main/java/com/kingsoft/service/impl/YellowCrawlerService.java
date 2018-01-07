@@ -183,7 +183,7 @@ public class YellowCrawlerService implements IYellowCrawlerService {
                         logger.error("获取小说内容失败，错误: " + e.getMessage());
                     }
                 }
-                
+
                 Elements pElements = doc.body().select("div.pic_text").get(0).select("div.content").get(0).select("p");
                 List<String> contentList = new ArrayList<>();
                 for (Element p : pElements) {
