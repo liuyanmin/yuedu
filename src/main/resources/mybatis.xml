@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/yuedu"
+            userId="root" password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.kingsoft.pojo"
+            targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+            targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+            targetPackage="com.kingsoft.pojo.mapper" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--<table tableName="tb_book" domainObjectName="Book"/>-->
+        <!--<table tableName="tb_book_label" domainObjectName="BookLabel"/>-->
+        <!--<table tableName="tb_book_chapter" domainObjectName="BookChapter"/>-->
+        <!--<table tableName="tb_book_section" domainObjectName="BookSection"/>-->
+        <!--<table tableName="tb_crawler_book_type" domainObjectName="CrawlerBookType"/>-->
+        <!--<table tableName="tb_yellow_book_label" domainObjectName="YellowBookLabel"/>-->
+        <table tableName="tb_yellow_book_section" domainObjectName="YellowBookSection"/>
+        <!--<table tableName="tb_yellow_crawler_error" domainObjectName="YellowCrawlerError"/>-->
+
+    </context>
+</generatorConfiguration>
