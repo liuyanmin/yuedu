@@ -148,7 +148,18 @@ public class YellowCrawlerService implements IYellowCrawlerService {
             String pageUrl = url + i + ".htm";
             logger.info("爬取第" + i + "页，链接: " + pageUrl);
             System.out.println("爬取第" + i + "页，链接: " + pageUrl);
-            Document document = Jsoup.connect(pageUrl).get();
+
+            /************************* for循环3次是为了防止IO异常导致程序停止运行 ********************/
+            Document document = null;
+            for (int n = 0;n < 3; n++) {
+                try {
+                    document = Jsoup.connect(pageUrl).get();
+                    if (document != null) break;
+                } catch (Exception e) {
+                    logger.error("打开目录列表失败，错误: " + e.getMessage());
+                }
+            }
+
             Element div = document.body().select("div.channel").get(0);
             Elements liList = div.select("li");// 找出所有li标签
             for (int j = 0; j < liList.size(); j++) {
@@ -162,7 +173,17 @@ public class YellowCrawlerService implements IYellowCrawlerService {
 
                 // 爬取内容
                 String contentUrl = baseUrl+sectionUrl;
-                Document doc = Jsoup.connect(contentUrl).get();
+                /************************* for循环3次是为了防止IO异常导致程序停止运行 ********************/
+                Document doc = null;
+                for (int k = 0; k < 3; k++) {
+                    try {
+                        doc = Jsoup.connect(contentUrl).get();
+                        if (doc != null) break;
+                    } catch (Exception e) {
+                        logger.error("获取小说内容失败，错误: " + e.getMessage());
+                    }
+                }
+                
                 Elements pElements = doc.body().select("div.pic_text").get(0).select("div.content").get(0).select("p");
                 List<String> contentList = new ArrayList<>();
                 for (Element p : pElements) {
